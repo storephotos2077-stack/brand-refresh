@@ -1,31 +1,30 @@
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { nitro } from "nitro/vite";
 
-// Deploy target: Vercel sets `VERCEL=1` during its builds, so the production
-// build emits the Vercel Build Output API bundle there and keeps the default
-// target everywhere else. Force locally with `NITRO_PRESET=vercel npm run build`.
 const preset = process.env["NITRO_PRESET"] ?? (process.env["VERCEL"] ? "vercel" : undefined);
 
 export default defineConfig({
-  ...(preset ? { nitro: { preset } } : {}),
-  tanstackStart: {
-    // Redirect the bundled server entry to src/server.ts (our SSR error wrapper).
-    server: { entry: "server" },
+  resolve: {
+    dedupe: [
+      "react",
+      "react-dom",
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
+      "@tanstack/react-query",
+      "@tanstack/query-core",
+    ],
   },
-  vite: {
-    build: {
-      cssMinify: "lightningcss",
-      // Long-term cacheable, well-split chunks.
-      rollupOptions: {
-        output: {
-          manualChunks(id: string) {
-            if (!id.includes("node_modules")) return undefined;
-            if (id.includes("react-dom") || id.includes("/react/")) return "react";
-            if (id.includes("@tanstack")) return "tanstack";
-            if (id.includes("lucide-react")) return "icons";
-            return undefined;
-          },
-        },
-      },
-    },
-  },
+  plugins: [
+    tanstackStart({
+      server: { entry: "server" },
+    }),
+    tailwindcss(),
+    react(),
+    tsconfigPaths(),
+    ...(preset ? [nitro({ preset })] : []),
+  ],
 });

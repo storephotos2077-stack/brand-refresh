@@ -4,6 +4,11 @@
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": ".vercel/output",
+  "functions": {
+    "**/*.func/**": {
+      "runtime": "nodejs22.x"
+    }
+  },
   "headers": [
     {
       "source": "/assets/(.*)",

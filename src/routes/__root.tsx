@@ -95,9 +95,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
 
       { property: "og:site_name", content: "FarmFreshNow" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "FarmFreshNow" },
-      { name: "twitter:description", content: "Farm to Fresh. Always Fresh. Same-day fresh chicken delivery." },
+      { property: "og:image", content: "https://farmfreshnow.vercel.app/og-image.png" },
+      { property: "og:image:width", content: "512" },
+      { property: "og:image:height", content: "512" },
+      { property: "og:image:type", content: "image/png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "FarmFreshNow — Farm to Fresh. Always Fresh." },
+      { name: "twitter:description", content: "Fresh Chicken Home Delivery — cut after you order, never frozen, delivered cold with live tracking." },
+      { name: "twitter:image", content: "https://farmfreshnow.vercel.app/og-image.png" },
     ],
     scripts: [
       {
@@ -113,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               slogan: "Farm to Fresh. Always Fresh.",
               description:
                 "Fresh, never-frozen chicken cut after you order and delivered cold in a slot you choose.",
-              logo: "/apple-touch-icon.png",
+              logo: "https://farmfreshnow.vercel.app/apple-touch-icon.png",
             },
             {
               "@type": "WebSite",
@@ -141,6 +146,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap",
       },
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
