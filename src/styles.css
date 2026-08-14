@@ -624,3 +624,92 @@
     box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-primary) 35%, transparent), var(--shadow-lift);
   }
 }
+
+/* ---------------------------------------------------------------- *
+ * Navigation + heading motion
+ * ---------------------------------------------------------------- */
+
+@layer base {
+  @keyframes ffn-nav-in {
+    from { opacity: 0; transform: translate3d(0, -8px, 0); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes ffn-rule-grow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  @keyframes ffn-swipe {
+    from { transform: translate3d(-120%, 0, 0); }
+    to { transform: translate3d(120%, 0, 0); }
+  }
+}
+
+/* Staggered entrance for top-level nav links. */
+.nav-in > * {
+  animation: ffn-nav-in 460ms cubic-bezier(0.22, 0.75, 0.25, 1) both;
+}
+.nav-in > *:nth-child(1) { animation-delay: 40ms; }
+.nav-in > *:nth-child(2) { animation-delay: 80ms; }
+.nav-in > *:nth-child(3) { animation-delay: 120ms; }
+.nav-in > *:nth-child(4) { animation-delay: 160ms; }
+.nav-in > *:nth-child(5) { animation-delay: 200ms; }
+.nav-in > *:nth-child(6) { animation-delay: 240ms; }
+.nav-in > *:nth-child(7) { animation-delay: 280ms; }
+.nav-in > *:nth-child(8) { animation-delay: 320ms; }
+.nav-in > *:nth-child(9) { animation-delay: 360ms; }
+
+/* Hoverable nav pill: soft background grows from the centre. */
+.nav-pill { position: relative; isolation: isolate; }
+.nav-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0.15rem 0;
+  z-index: -1;
+  border-radius: 9999px;
+  background: color-mix(in oklab, var(--color-primary) 10%, transparent);
+  opacity: 0;
+  transform: scale(0.82);
+  transition: opacity 240ms ease, transform 280ms cubic-bezier(0.22, 0.75, 0.25, 1);
+}
+.nav-pill:hover::before,
+.nav-pill:focus-visible::before,
+.nav-pill[data-active="true"]::before { opacity: 1; transform: scale(1); }
+.nav-pill > span:first-child {
+  display: inline-block;
+  transition: transform 240ms cubic-bezier(0.22, 0.75, 0.25, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-pill:hover > span:first-child { transform: translateY(-1px); }
+}
+
+/* Light swipe across a CTA on hover. */
+.swipe-fx { position: relative; overflow: hidden; }
+.swipe-fx::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 35%, color-mix(in oklab, white 40%, transparent) 50%, transparent 65%);
+  transform: translate3d(-120%, 0, 0);
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .swipe-fx:hover::after { animation: ffn-swipe 720ms ease-out; }
+}
+
+/* Accent rule that grows in under a heading. */
+.rule-grow {
+  display: block;
+  height: 2px;
+  width: 3.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--color-primary), color-mix(in oklab, var(--color-accent) 80%, var(--color-primary)));
+  transform-origin: left center;
+  animation: ffn-rule-grow 620ms cubic-bezier(0.22, 0.75, 0.25, 1) both 120ms;
+}
+.rule-grow[data-center="true"] { transform-origin: center; }
+
+/* Slide-in rows for the mobile menu. */
+.menu-in > * {
+  animation: ffn-nav-in 380ms cubic-bezier(0.22, 0.75, 0.25, 1) both;
+}
+.menu-in > *:nth-child(n) { animation-delay: calc(var(--i, 0) * 45ms); }
