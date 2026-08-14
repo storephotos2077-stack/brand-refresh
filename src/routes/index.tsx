@@ -8,6 +8,7 @@ import { FreshnessMeter } from "@/components/freshness-meter";
 import { DeliveryJourney } from "@/components/delivery-journey";
 import { DeliveryZonesPanel } from "@/components/delivery-zones";
 import { TestimonialCarousel } from "@/components/testimonial-carousel";
+import { TrustMarquee } from "@/components/trust-marquee";
 import { Reveal } from "@/lib/motion";
 import { SectionHeader } from "@/components/page-header";
 import { products } from "@/lib/shop-data";
@@ -49,6 +50,8 @@ function Home() {
     <div>
       <SiteHero />
 
+      <TrustMarquee />
+
       <section className="container-page section-y">
         <SectionHeader
           eyebrow="Today's counter"
@@ -81,8 +84,8 @@ function Home() {
           />
           <div className="mt-12 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {reasons.map((r, i) => (
-              <Reveal key={r.title} delay={i * 70} className="surface-card card-lift group h-full p-6">
-                <r.icon className="size-6 text-primary transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-110" />
+              <Reveal key={r.title} delay={i * 70} className="surface-card card-lift ring-hover group h-full p-6">
+                <r.icon className="bob size-6 text-primary transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-110" />
                 <p className="mt-4 font-display text-lg">{r.title}</p>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{r.body}</p>
               </Reveal>

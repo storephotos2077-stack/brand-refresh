@@ -19,7 +19,7 @@ function Stat({ value, suffix, label, decimals = 0 }: { value: number; suffix?: 
   const n = useCountUp(value, true, 1100, decimals);
   return (
     <div>
-      <p className="text-2xl font-extrabold tracking-tight">
+      <p className="tick-in text-2xl font-extrabold tracking-tight">
         {n.toFixed(decimals)}
         {suffix}
       </p>
@@ -48,7 +48,7 @@ export function SiteHero() {
         className="container-page relative z-10 grid items-center gap-10 py-14 sm:py-16 lg:grid-cols-2 lg:gap-14 lg:py-24"
       >
         <div className="hero-enter">
-          <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.14em] uppercase">
+          <p className="glow-pulse inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.14em] uppercase">
             <span className="relative grid size-2 place-items-center">
               <span className="absolute inset-0 rounded-full bg-success/60 [animation:ffn-ping-soft_2.4s_ease-out_infinite]" />
               <span className="size-2 rounded-full bg-success" />
@@ -57,7 +57,7 @@ export function SiteHero() {
           </p>
           <h1 className="mt-5 text-[clamp(2.5rem,8vw,3.75rem)] leading-[1.05]">
             Farm to Fresh.
-            <span className="block text-primary">Always Fresh.</span>
+            <span className="text-pan block">Always Fresh.</span>
           </h1>
           <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
             Chicken cut to order after you place it, packed cold at 0–4 °C and delivered in the slot
