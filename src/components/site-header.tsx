@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, ShoppingCart } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ProductSearch } from "@/components/product-search";
@@ -200,7 +200,7 @@ export function SiteHeader() {
                 {[...nav, ...staffNav].map((n, i) => (
                   <Link
                     key={n.to}
-                    style={{ "--i": i } as React.CSSProperties}
+                    style={{ "--i": i } as CSSProperties}
                     to={n.to}
                     onClick={() => setOpen(false)}
                     className={cn(

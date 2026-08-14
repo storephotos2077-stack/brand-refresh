@@ -40,6 +40,7 @@ export function PageHeader({
       >
         {title}
       </h1>
+      <span aria-hidden className="rule-grow mt-4" data-center={centered} />
       {description && (
         <p
           className={cn(
@@ -81,6 +82,7 @@ export function SectionHeader({
     >
       {eyebrow && <p className="eyebrow">{eyebrow}</p>}
       <h2 className={cn("mt-3 text-[clamp(1.6rem,3.6vw,2.15rem)] leading-tight text-balance")}>{title}</h2>
+      <span aria-hidden className="rule-grow mt-3" data-center={centered} />
       {description && (
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-pretty text-muted-foreground">{description}</p>
       )}
