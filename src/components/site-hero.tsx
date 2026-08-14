@@ -19,7 +19,7 @@ function Stat({ value, suffix, label, decimals = 0 }: { value: number; suffix?: 
   const n = useCountUp(value, true, 1100, decimals);
   return (
     <div>
-      <p className="font-display text-2xl tabular-nums">
+      <p className="text-2xl font-extrabold tracking-tight">
         {n.toFixed(decimals)}
         {suffix}
       </p>
