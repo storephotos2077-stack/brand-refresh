@@ -4,13 +4,20 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import { reportClientError } from "../lib/error-reporting";
+import { ShopProvider } from "@/lib/shop-store";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { ScrollProgress } from "@/components/scroll-progress";
+import { MobileCartBar } from "@/components/mobile-cart-bar";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -38,7 +45,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportClientError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
@@ -77,21 +84,63 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "FarmFreshNow — Farm to Fresh. Always Fresh." },
+      {
+        name: "description",
+        content:
+          "Order farm-fresh, never-frozen chicken online with live order tracking, scheduled delivery slots and instant invoices.",
+      },
+      { property: "og:title", content: "FarmFreshNow" },
+      { property: "og:description", content: "Farm to Fresh. Always Fresh. Same-day fresh chicken delivery." },
       { property: "og:type", content: "website" },
+
+      { property: "og:site_name", content: "FarmFreshNow" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "#organization",
+              name: "FarmFreshNow",
+              legalName: "FarmFreshNow Foods Pvt. Ltd.",
+              slogan: "Farm to Fresh. Always Fresh.",
+              description:
+                "Fresh, never-frozen chicken cut after you order and delivered cold in a slot you choose.",
+              logo: "/apple-touch-icon.png",
+            },
+            {
+              "@type": "WebSite",
+              "@id": "#website",
+              name: "FarmFreshNow",
+              description:
+                "Order fresh chicken online — cut after you order, never frozen, delivered in your chosen slot.",
+              publisher: { "@id": "#organization" },
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "/products?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            },
+          ],
+        }),
+      },
+
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -116,11 +165,25 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <ShopProvider>
+        <ScrollProgress />
+        <div className="flex min-h-screen flex-col">
+          <SiteHeader />
+          <main className="flex-1">
+            {/* Required: nested routes render here. */}
+            <div key={pathname} className="route-fade">
+              <Outlet />
+            </div>
+          </main>
+          <SiteFooter />
+        </div>
+        <MobileCartBar />
+        <Toaster position="top-center" richColors />
+      </ShopProvider>
     </QueryClientProvider>
   );
 }

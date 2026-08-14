@@ -1,0 +1,39 @@
+# FarmFreshNow
+
+> Farm to Fresh. Always Fresh. FarmFreshNow sells never-frozen chicken that is
+> cut after you order, weighed after cleaning, packed at 0–4 °C and delivered in
+> a two-hour slot you choose, with live order tracking and an instant invoice.
+
+## What we sell
+- Fresh whole chicken (skinless, dressed)
+- Curry cut (bone-in), boneless breast, boneless leg, keema
+- Farm eggs
+- Combo packs
+- Weekly and alternate-day subscription plans
+
+## How ordering works
+1. Choose your chicken on the products page.
+2. We cut it after you order — nothing is pre-cut, nothing is frozen.
+3. We pack it cold with gel packs at 0–4 °C.
+4. We deliver in the date and two-hour window you select, with live tracking.
+
+## Key pages
+- [Home](/): brand overview, featured cuts, freshness and delivery story.
+- [Products](/products): full catalogue with net weights and prices per pack.
+- [Subscriptions](/subscriptions): weekly and alternate-day delivery plans.
+- [Delivery](/delivery): serviceable zones, slots and pincode check.
+- [About](/about): sourcing, cutting room and hygiene standards.
+- [FAQ](/faq): freshness, delivery, packing, payments and hygiene answers.
+- [Journal](/blog): guides on storing, choosing and cooking fresh chicken.
+- [Contact](/contact): how to reach the shop.
+
+## Policies
+- [Privacy policy](/legal/privacy)
+- [Terms of service](/legal/terms)
+- [Cancellation & refunds](/legal/refunds)
+- [Shipping & delivery](/legal/shipping)
+
+## Notes
+- Cart, checkout, account, order tracking and admin pages are private and not indexed.
+- Business contact and registration details shown on the site are placeholders
+  pending the operator's real values.

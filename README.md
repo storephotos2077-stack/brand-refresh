@@ -1,29 +1,45 @@
-# Welcome to your Lovable project
+# FarmFreshNow
 
-This project was built with [Lovable](https://lovable.dev).
+Marketing + storefront site for FarmFreshNow — fresh, never-frozen chicken cut after you order,
+packed cold and delivered in a slot you choose.
 
-## Build with Lovable
-
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+Built with TanStack Start (React 19), Vite, Tailwind CSS v4 and shadcn-style UI primitives.
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Requires Node.js 20+.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+npm install
+npm run dev      # http://localhost:8080
+npm run build    # production build
+npm run preview  # preview the production build
+npm run lint
 ```
 
-## Built with
+## Deploying to Vercel
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+The production build targets the Vercel Build Output API automatically when the `VERCEL`
+environment variable is present (Vercel sets this during builds). Locally you can force it with:
+
+```sh
+NITRO_PRESET=vercel npm run build
+```
+
+On Vercel, import the repository and keep the defaults:
+
+- Build command: `npm run build`
+- Output directory: `.vercel/output`
+- Install command: `npm install`
+
+Static assets are served with long-lived immutable cache headers (see `vercel.json`), pages are
+server-rendered at the edge, and images/JS are code-split per route.
+
+## Project structure
+
+```
+src/routes       file-based routes (pages, sitemap, API-free)
+src/components   page sections and UI primitives
+src/lib          shop data, cart store, motion system, helpers
+src/styles.css   design tokens, utilities and the animation system
+```
