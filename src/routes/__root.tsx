@@ -95,7 +95,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
 
       { property: "og:site_name", content: "FarmFreshNow" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "FarmFreshNow" },
+      { name: "twitter:description", content: "Farm to Fresh. Always Fresh. Same-day fresh chicken delivery." },
     ],
     scripts: [
       {

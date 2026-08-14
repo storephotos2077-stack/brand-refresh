@@ -124,17 +124,18 @@ export function SiteHeader() {
           </span>
         )}
 
-        <nav className="mx-auto hidden items-center gap-0.5 lg:flex">
+        <nav className="nav-in mx-auto hidden items-center gap-0.5 lg:flex">
           {nav.map((n) => (
             <Link
               key={n.to}
               to={n.to}
               className={cn(
-                "relative rounded-full px-2.5 py-2 text-sm font-medium whitespace-nowrap text-muted-foreground transition-colors duration-200 hover:text-foreground xl:px-3",
+                "nav-pill relative rounded-full px-2.5 py-2 text-sm font-medium whitespace-nowrap text-muted-foreground transition-colors duration-200 hover:text-foreground xl:px-3",
                 path === n.to && "text-foreground",
               )}
+              data-active={path === n.to}
             >
-              {n.label}
+              <span>{n.label}</span>
               <span
                 aria-hidden
                 className={cn(
@@ -150,11 +151,12 @@ export function SiteHeader() {
               key={n.to}
               to={n.to}
               className={cn(
-                "relative rounded-full px-2.5 py-2 text-sm font-medium whitespace-nowrap text-muted-foreground transition-colors duration-200 hover:text-foreground xl:px-3",
+                "nav-pill relative rounded-full px-2.5 py-2 text-sm font-medium whitespace-nowrap text-muted-foreground transition-colors duration-200 hover:text-foreground xl:px-3",
                 path === n.to && "text-foreground",
               )}
+              data-active={path === n.to}
             >
-              {n.label}
+              <span>{n.label}</span>
               <span
                 aria-hidden
                 className={cn(
@@ -176,14 +178,14 @@ export function SiteHeader() {
               {cartCount > 0 && (
                 <span
                   key={cartCount}
-                  className="pop-in absolute -top-2 -right-2 grid size-5 place-items-center rounded-full bg-accent text-[0.65rem] font-bold text-accent-foreground tabular-nums"
+                  className="pop-in glow-pulse absolute -top-2 -right-2 grid size-5 place-items-center rounded-full bg-accent text-[0.65rem] font-bold text-accent-foreground tabular-nums"
                 >
                   {cartCount}
                 </span>
               )}
             </Link>
           </Button>
-          <Button asChild size="sm" className="press-fx lift-fx sheen hidden sm:inline-flex">
+          <Button asChild size="sm" className="press-fx lift-fx sheen swipe-fx hidden sm:inline-flex">
             <Link to="/products">Order Now</Link>
           </Button>
 
@@ -194,10 +196,11 @@ export function SiteHeader() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[min(20rem,86vw)] px-5">
-              <div className="stagger-in mt-10 flex flex-col gap-1">
-                {[...nav, ...staffNav].map((n) => (
+              <div className="menu-in mt-10 flex flex-col gap-1">
+                {[...nav, ...staffNav].map((n, i) => (
                   <Link
                     key={n.to}
+                    style={{ "--i": i } as React.CSSProperties}
                     to={n.to}
                     onClick={() => setOpen(false)}
                     className={cn(
