@@ -533,3 +533,94 @@
     filter: none !important;
   }
 }
+
+/* ---------------------------------------------------------------- *
+ * Extended motion set — marquee, glow, gradient text, 3D tilt.
+ * ---------------------------------------------------------------- */
+
+@layer base {
+  @keyframes ffn-marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+  @keyframes ffn-glow {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-primary) 32%, transparent); }
+    50% { box-shadow: 0 0 0 10px color-mix(in oklab, var(--color-primary) 0%, transparent); }
+  }
+  @keyframes ffn-gradient-pan {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  @keyframes ffn-bob {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -6px, 0); }
+  }
+  @keyframes ffn-draw {
+    from { stroke-dashoffset: var(--dash, 240); }
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes ffn-tick {
+    0% { transform: translate3d(0, 40%, 0); opacity: 0; }
+    100% { transform: translate3d(0, 0, 0); opacity: 1; }
+  }
+}
+
+/* Infinite horizontal ticker. Duplicate the children once for a seamless loop. */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: ffn-marquee var(--marquee-dur, 32s) linear infinite;
+  will-change: transform;
+}
+.marquee-mask {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+@media (hover: hover) and (pointer: fine) {
+  .marquee-mask:hover .marquee { animation-play-state: paused; }
+}
+
+/* Soft attention pulse for live/urgent chips. */
+.glow-pulse { animation: ffn-glow 2.8s ease-out infinite; }
+
+/* Slowly panning gradient text for accent headlines. */
+.text-pan {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-primary),
+    color-mix(in oklab, var(--color-accent) 82%, var(--color-primary)),
+    var(--color-primary)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: ffn-gradient-pan 7s linear infinite;
+}
+
+/* Gentle vertical bob for icons and badges. */
+.bob { animation: ffn-bob var(--dur, 4.5s) ease-in-out infinite; }
+
+/* Pointer-reactive 3D tilt container (desktop only). */
+.tilt-3d {
+  transform-style: preserve-3d;
+  transition: transform 320ms cubic-bezier(0.22, 0.75, 0.25, 1);
+}
+
+/* Number roll-in for stats. */
+.tick-in { animation: ffn-tick 520ms cubic-bezier(0.22, 0.75, 0.25, 1) both; }
+
+/* Stroke draw-on for inline SVG paths once revealed. */
+.draw-line {
+  stroke-dasharray: var(--dash, 240);
+  stroke-dashoffset: var(--dash, 240);
+}
+.is-visible .draw-line { animation: ffn-draw 1.2s cubic-bezier(0.22, 0.75, 0.25, 1) forwards; }
+
+/* Card hover glow ring. */
+.ring-hover { transition: box-shadow 320ms ease, transform 320ms cubic-bezier(0.22, 0.75, 0.25, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .ring-hover:hover {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-primary) 35%, transparent), var(--shadow-lift);
+  }
+}
